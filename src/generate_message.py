@@ -7,9 +7,13 @@ from langchain_openai import ChatOpenAI
 
 load_dotenv()
 
+# LLM for personalized message generation
+
 llm = ChatOpenAI(
     model="gpt-3.5-turbo-0125", temperature=0.7, api_key=os.getenv("OPENAI_API_KEY")
 )
+
+# System prompt for LLM
 
 SYSTEM_PROMPT = """
 Take a deep breath and think that you are a helpful model that sends a personalized messages based on the sentiment of the comment aimed at \ 
@@ -31,6 +35,26 @@ comment to which he or she has replied and the post to which the comment was mad
 
 
 def generate_message(comment, db_conn, is_reply_to_post):
+    """
+    The function `generate_message` takes in a comment, a database connection, and a flag indicating if
+    the comment is a reply to a post, then generates a customized message based on the comment and
+    related post or parent comment information.
+
+    :param comment: The `comment` parameter seems to be a tuple containing information about a comment.
+    It likely has the following structure:
+    :param db_conn: The `db_conn` parameter in the `generate_message` function is a database connection
+    object that allows the function to interact with a database. It is used to execute SQL queries to
+    retrieve information about posts and comments based on the provided comment data
+    :param is_reply_to_post: The `is_reply_to_post` parameter in the `generate_message` function is a
+    boolean value that indicates whether the comment is a reply to a post or a reply to another comment.
+    If `is_reply_to_post` is `True`, it means the comment is a reply to the original post
+
+    :return: The function `generate_message` returns a customized message for the author of a comment
+    based on whether the comment is a reply to a post or another comment. The message includes
+    information such as the subreddit post title, post content, commenter name, comment body, and in the
+    case of a reply to another comment, the parent comment body. The message is generated using a
+    language model based on the provided information
+    """
     cursor = db_conn.cursor()
     cursor.execute(f"SELECT * FROM posts WHERE post_id = '{comment[1]}';")
     post = cursor.fetchall()[0]
@@ -104,6 +128,11 @@ def generate_message(comment, db_conn, is_reply_to_post):
 
 
 def main():
+    """
+    The main function retrieves comments from a SQLite database, generates personalized messages based
+    on the comments, and saves the messages in a JSON file.
+    """
+
     conn = sqlite3.connect("reddit_data.db")
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM comments")
