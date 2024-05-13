@@ -10,7 +10,7 @@ This project aims to showcase proficiency in ethical web scraping, data analysis
 
 ### Hard Requirements
 
-1. Python (v3.11)
+1. Python (3.11.X)
 2. Reddit Account
 
 ### Soft Requirements
@@ -19,6 +19,7 @@ This project aims to showcase proficiency in ethical web scraping, data analysis
 2. VS Code (code editor)
 3. SQLite (Extension for VSCode)
 4. SQLite Viewer (Extension for VSCode)
+5. macOS 14.4.1
 
 ## Setup Steps
 
@@ -52,8 +53,10 @@ To setup the environment variables for your application I prefer using the `.env
 
 1. **Create a `.env` File**: Start by creating a file named `.env` in the root directory of your application.
 
+    Write the following command in the terminal
+
     ```bash
-    touch .env
+    touch .env # Shell command to create a file named `.env`
     ```
 
 2. **Define Environment Variables**: Inside the `.env` file, define your environment variables using the KEY=VALUE format. I have provide the `.env.example` file containing the example variables you want to define. You can just copy and paste the example variables and set your environment variables.
@@ -67,7 +70,7 @@ To setup the environment variables for your application I prefer using the `.env
        REDDIT_PASSWORD=""   # Write Your Reddit Password in quotes (Not Required)
 
        # OPENAI_API_KEY
-       OPENAI_API_KEY="" # Write Your OpenAI API Key in quotes
+       OPENAI_API_KEY=""    # Write Your OpenAI API Key in quotes
     ```
     Note: For using the Reddit API you require the Reddit account and obtain your the Reddit API key (Client ID and Secret Key) from your account. You can follow the following steps if you dont have the Reddit Secret Key.
 
@@ -91,7 +94,7 @@ To setup the environment variables for your application I prefer using the `.env
 
       Note: Keep your client ID and secret key secure and do not share them publicly or expose them in your version control system.
 
-🎉 Now You are ready to run the code but before that just get the overview of the procedure.
+<h3> 🎉 Now You are ready to run the code but before that just get the overview of the procedure.</h3>
 
 ## Methodology Overview
 
@@ -137,7 +140,7 @@ To setup the environment variables for your application I prefer using the `.env
    - Include author ID, comment content, whether it's a reply to a post or a comment, and the personalized message.
 
 
-### How to run the code 
+## How to run the code 
 
 All the code is provided in the `src/` directory. It will contain the following files.
 
@@ -148,4 +151,68 @@ src
 └── scrape_data.py              # Used to scrape comments and Posts from Reddit for particular topic
 ```
 
-1. **Running `scrape_data.py`**: First to scrape post and 
+1. **Running `scrape_data.py`**: This python script will scrape the comments and posts related for the particular topic and store them in the SQLite database (`reddir_data.py`)
+
+   ```bash
+   # Details regarding the Usage. All the arguments are optional but can be overridden
+   usage: scrape_data.py [-h] [--topic TOPIC] [--limit LIMIT] [--depth {shallow,deep}]
+
+   Scrape Reddit data
+
+   options:
+     -h, --help            show this help message and exit
+     --topic TOPIC         Topic to search for eg. "clinical trial"
+     --limit LIMIT         Number of posts to scrape per subreddit eg. 5
+     --depth {shallow,deep}
+                           Search depth for subreddits default is shallow
+   ```
+
+    Write the following line in terminal to start scraping. 
+
+   ```bash 
+    python src/scrape_data.py # You can add arguments and override the default arguments for different topic 
+
+     #OR
+
+    python src/scrape_data.py --topic "clinical trial" --limit 5 --depth shallow
+   ```
+
+   - After Running this script SQLite database named `reddit_data.db` will be created in the root directory of the project. You can look at the database if you are using the VS Code extension `SQLite` and `SQLite Viewer`
+
+    Example Database:
+     ### Table: posts
+
+     | post_id | title                                    | author             | content                                                                 |
+     |---------|------------------------------------------|--------------------|-------------------------------------------------------------------------|
+     | omqnox  | Clinical Trials Discussion Thread - Week of 2021-07-18 | ClinicalTrialsBot | Here you can talk about specific clinical trials, random studies or experiences with them, or the clinical trials process like recruitment, compensation etc. |
+
+     ### Table: comments
+
+      | comment_id | post_id | comment_author | comment_body | reply_to_comment_id |
+      |------------|---------|----------------|--------------|---------------------|
+      | h7k4j6a    | omqnox  | RachelRei      | My trial has had a rash of people canceling their study day appointments last minute! This costs me $200 in cancellation fees. I can’t charge them these fees since they are volunteering their time. Any suggestions on steps to take? We already send out plenty of reminders and communicate openly. | omqnox |
+
+
+2. **Running `generate_message.py`**: This Python script will create a JSON file containing the personalized messages to the commenter based on their comments Using the LLM. 
+
+   Write following line in the terminal to run the code.
+
+   ```bash
+    python src/generate_message.py  
+   ```
+
+   Example Output in JSON File :
+    ```JSON
+    {
+        "author_id": "h7k4j6a",
+        "comment": "RachelRei",
+        "is_reply_to_post": true,
+        "personalized_message": "Hi RachelRei,\n\nI'm sorry to hear about the challenges you're facing with last-minute cancellations in your clinical trial. It's understandable that this can be frustrating, especially when it results in financial losses. Have you considered exploring strategies to improve participant engagement and commitment, such as providing additional support or incentives to encourage attendance?\n\nClinical trials are crucial for advancing medical research and improving healthcare outcomes, and your dedication to managing these challenges is commendable. Your experience highlights the importance of continuous improvement in the clinical trial process. If you're open to it, participating in a clinical trial yourself could provide valuable insights and contribute to the advancement of medical knowledge.\n\nIf you're interested, I'd be happy to provide more information on how to get involved in clinical trials or discuss any questions you may have. Your contribution to research efforts is truly appreciated!\n\nBest regards,\n[Your Name]"
+    }
+    ```
+
+## Evaluation of Results:
+
+Manual analysis of the responses generated by the LLM (OpenAI's GPT-3) showed promising results in providing personalized and engaging messages to Reddit commenters. The methodology adopted in this project demonstrates the potential of AI-driven communication in enhancing user engagement and interaction on online platforms.
+
+
