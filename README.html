@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="turmerik-ml-home-assignment">Turmerik ML Home Assignment</h1>
+<p>This project aims to showcase proficiency in ethical web scraping, data analysis with sentiment analysis, and the integration of AI for personalized communication. This readme provides guidelines for setting up and running the code, a brief discussion of the methodology, examples of collected data, and an overall data analysis along with generated personalized messages.</p>
+<h2 id="author">Author</h2>
+<ul>
+<li>Vatsal Thakkar (<a href="mailto:vatsalthakkar3.vt@gmail.com">vatsalthakkar3.vt@gmail.com</a>)</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<h3 id="hard-requirements">Hard Requirements</h3>
+<ol>
+<li>Python (3.11.X)</li>
+<li>Reddit Account</li>
+</ol>
+<h3 id="soft-requirements">Soft Requirements</h3>
+<ol>
+<li>Miniconda</li>
+<li>VS Code (code editor)</li>
+<li>SQLite (Extension for VSCode)</li>
+<li>SQLite Viewer (Extension for VSCode)</li>
+<li>macOS 14.4.1</li>
+</ol>
+<h2 id="setup-steps">Setup Steps</h2>
+<h3 id="install-python-dependencies">Install Python Dependencies</h3>
+<p>If you prefer to use Miniconda for managing Python environments, follow all the steps (1-5) outlined. However, if you opt not to use Miniconda, make sure you have Python version 3.11 installed, and you can skip steps 1-4, proceeding directly to step 5. I recommend using Miniconda for smoother Python environment management.</p>
+<ol>
+<li>
+<p><strong>Download Miniconda</strong>: Visit the <a href="https://docs.conda.io/en/latest/miniconda.html">Miniconda website</a> and download the appropriate installer for your OS.</p>
+</li>
+<li>
+<p><strong>Install Miniconda</strong>: Follow the installation instructions provided on the Miniconda website after downloading the installer.</p>
+</li>
+<li>
+<p><strong>Set up Conda Environment</strong>:</p>
+<pre class="hljs"><code><div>conda create --name turmerik_ml python=3.11
+</div></code></pre>
+</li>
+<li>
+<p><strong>Activate the Environment</strong>:</p>
+<pre class="hljs"><code><div>conda activate turmerik_ml
+</div></code></pre>
+</li>
+<li>
+<p><strong>Install Dependencies</strong>:</p>
+<pre class="hljs"><code><div>pip install -r requirements.txt
+</div></code></pre>
+<p>This command installs all necessary packages listed in <code>requirements.txt</code> into your Python environment.</p>
+</li>
+</ol>
+<h3 id="setting-up-the-environment-variables">Setting up the Environment Variables</h3>
+<p>To setup the environment variables for your application I prefer using the <code>.env</code> configuration file to store all the environment variable and keep the environment variables in the same place and private</p>
+<ol>
+<li>
+<p><strong>Create a <code>.env</code> File</strong>: Start by creating a file named <code>.env</code> in the root directory of your application.</p>
+<p>Write the following command in the terminal</p>
+<pre class="hljs"><code><div>touch .env <span class="hljs-comment"># Shell command to create a file named `.env`</span>
+</div></code></pre>
+</li>
+<li>
+<p><strong>Define Environment Variables</strong>: Inside the <code>.env</code> file, define your environment variables using the KEY=VALUE format. I have provide the <code>.env.example</code> file containing the example variables you want to define. You can just copy and paste the example variables and set your environment variables.</p>
+<pre class="hljs"><code><div>   <span class="hljs-comment"># REDDIT API</span>
+   REDDIT_SECRET_KEY=<span class="hljs-string">""</span> <span class="hljs-comment"># Write Your Reddit Secret Key in quotes </span>
+   REDDIT_CLIENT_ID=<span class="hljs-string">""</span>  <span class="hljs-comment"># Write Your Reddit Client ID in quotes</span>
+   USER_AGENT=<span class="hljs-string">""</span>        <span class="hljs-comment"># Write Your Reddit User Agent in quotes</span>
+   REDDIT_USERNAME=<span class="hljs-string">""</span>   <span class="hljs-comment"># Write Your Reddit Username in quotes (Not Required)</span>
+   REDDIT_PASSWORD=<span class="hljs-string">""</span>   <span class="hljs-comment"># Write Your Reddit Password in quotes (Not Required)</span>
+
+   <span class="hljs-comment"># OPENAI_API_KEY</span>
+   OPENAI_API_KEY=<span class="hljs-string">""</span>    <span class="hljs-comment"># Write Your OpenAI API Key in quotes</span>
+</div></code></pre>
+<p>Note: For using the Reddit API you require the Reddit account and obtain your the Reddit API key (Client ID and Secret Key) from your account. You can follow the following steps if you dont have the Reddit Secret Key.</p>
+<h4 id="obtaining-reddit-client-id-and-secret-key">Obtaining Reddit Client ID and Secret Key</h4>
+<p>Follow these steps to obtain your Reddit client ID and secret key for authenticating with the Reddit API:</p>
+<ol>
+<li>
+<p><strong>Create a Reddit Account</strong>: Sign up for a Reddit account if you don't already have one.</p>
+</li>
+<li>
+<p><strong>Visit Reddit Developer App Settings</strong>: Log in to your Reddit account and go to <a href="https://www.reddit.com/prefs/apps">Reddit App Preferences</a>.</p>
+</li>
+<li>
+<p><strong>Create a New Reddit App</strong>: Scroll down to the &quot;Developed Applications&quot; section and click on the &quot;Create App&quot; button.</p>
+</li>
+<li>
+<p><strong>Fill Out the App Creation Form</strong>: Choose the type of app you're creating, enter a name, and provide a redirect URI you can use http://localhost:8080 for testing purposes (if applicable).</p>
+</li>
+<li>
+<p><strong>Obtain the Client ID and Secret Key</strong>: After creating the app, you'll see your app's details, including the &quot;client ID&quot; and &quot;secret key&quot; (client secret).</p>
+</li>
+<li>
+<p><strong>Include Client ID and Secret Key in Your Application</strong>: Use these keys to authenticate with the Reddit API in your application. Ensure to keep them confidential and avoid hardcoding them directly in your source code.</p>
+</li>
+<li>
+<p><strong>Usage</strong>: Refer to your application's code or documentation for instructions on how to use the Reddit client ID and secret key for API authentication.</p>
+</li>
+</ol>
+<p>Note: Keep your client ID and secret key secure and do not share them publicly or expose them in your version control system.</p>
+</li>
+</ol>
+<h3> 🎉 Now You are ready to run the code but before that just get the overview of the procedure.</h3>
+<h2 id="methodology-overview">Methodology Overview</h2>
+<ol>
+<li>
+<p><strong>Data Collection</strong></p>
+<ul>
+<li>Use the PRAW library to scrape Reddit comments and related posts from specified subreddits.</li>
+<li>Store comment data (comment ID, post ID, comment author, comment body, reply-to comment ID) in a SQLite database.</li>
+<li>Store post data (post ID, title, author, content) in the same SQLite database.</li>
+</ul>
+<h3 id="database-schema">Database Schema</h3>
+<h4 id="table-posts">Table: posts</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>post_id</td>
+<td>TEXT</td>
+<td>Primary key, unique identifier for each post</td>
+</tr>
+<tr>
+<td>title</td>
+<td>TEXT</td>
+<td>Title of the post</td>
+</tr>
+<tr>
+<td>author</td>
+<td>TEXT</td>
+<td>Name of the author of the post</td>
+</tr>
+<tr>
+<td>content</td>
+<td>TEXT</td>
+<td>Content of the post</td>
+</tr>
+</tbody>
+</table>
+<h4 id="table-comments">Table: comments</h4>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>comment_id</td>
+<td>TEXT</td>
+<td>Primary key, unique identifier for each comment</td>
+</tr>
+<tr>
+<td>post_id</td>
+<td>TEXT</td>
+<td>Foreign key referencing the related post</td>
+</tr>
+<tr>
+<td>comment_author</td>
+<td>TEXT</td>
+<td>Name of the author of the comment</td>
+</tr>
+<tr>
+<td>comment_body</td>
+<td>TEXT</td>
+<td>Content of the comment</td>
+</tr>
+<tr>
+<td>reply_to_comment_id</td>
+<td>TEXT</td>
+<td>ID of the comment being replied to (if any) or Post id</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>Related Post Retrieval</strong></p>
+<ul>
+<li>Retrieve the related post for each comment using the parent ID from the SQLite database.</li>
+<li>Fetch post content (title and self-text if available) to include in personalized messages.</li>
+</ul>
+</li>
+<li>
+<p><strong>Sentiment Analysis</strong></p>
+<ul>
+<li>Lot of Research such as <a href="https://arxiv.org/pdf/2305.15005">Sentiment Analysis in the Era of Large Language Models: A Reality Check</a> shows that LLMs are able to understand the sentiments of the input and provide the repose based on that so we do not need a separate sentiment analysis model but we can just use LLM to get the sentiment of the comment and based on that context and then that LLM will generate the personalize message.</li>
+</ul>
+</li>
+<li>
+<p><strong>Message Generation</strong></p>
+<ul>
+<li>Use the OpenAI API (GPT-3) for generating personalized messages sensing the sentiment of the comment directly.</li>
+<li>Input comment content, related post content into GPT-3 to generate engaging messages.</li>
+<li>You can find the details regarding prompt and system prompt which are used form <code>src/generate_message.py</code> file.</li>
+</ul>
+</li>
+<li>
+<p><strong>Output Generation</strong></p>
+<ul>
+<li>Generate a JSON file containing personalized messages for each commenter.</li>
+<li>Include author ID, comment content, whether it's a reply to a post or a comment, and the personalized message.</li>
+</ul>
+</li>
+</ol>
+<h2 id="how-to-run-the-code">How to run the code</h2>
+<p>All the code is provided in the <code>src/</code> directory. It will contain the following files.</p>
+<pre class="hljs"><code><div>src
+├── __init__.py
+├── generate_message.py         <span class="hljs-comment"># Used To Generate the personalized Message Form the </span>
+└── scrape_data.py              <span class="hljs-comment"># Used to scrape comments and Posts from Reddit for particular topic</span>
+</div></code></pre>
+<ol>
+<li>
+<p><strong>Running <code>scrape_data.py</code></strong>: This python script will scrape the comments and posts related for the particular topic and store them in the SQLite database (<code>reddir_data.py</code>)</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Details regarding the Usage. All the arguments are optional but can be overridden</span>
+usage: scrape_data.py [-h] [--topic TOPIC] [--<span class="hljs-built_in">limit</span> LIMIT] [--depth {shallow,deep}]
+
+Scrape Reddit data
+
+options:
+  -h, --<span class="hljs-built_in">help</span>            show this <span class="hljs-built_in">help</span> message and <span class="hljs-built_in">exit</span>
+  --topic TOPIC         Topic to search <span class="hljs-keyword">for</span> eg. <span class="hljs-string">"clinical trial"</span>
+  --<span class="hljs-built_in">limit</span> LIMIT         Number of posts to scrape per subreddit eg. 5
+  --depth {shallow,deep}
+                        Search depth <span class="hljs-keyword">for</span> subreddits default is shallow
+</div></code></pre>
+<p>Write the following line in terminal to start scraping.</p>
+<pre class="hljs"><code><div> python src/scrape_data.py <span class="hljs-comment"># You can add arguments and override the default arguments for different topic </span>
+
+  <span class="hljs-comment">#OR</span>
+
+ python src/scrape_data.py --topic <span class="hljs-string">"clinical trial"</span> --<span class="hljs-built_in">limit</span> 5 --depth shallow
+</div></code></pre>
+<ul>
+<li>After Running this script SQLite database named <code>reddit_data.db</code> will be created in the root directory of the project. You can look at the database if you are using the VS Code extension <code>SQLite</code> and <code>SQLite Viewer</code></li>
+</ul>
+<p>Example Database:</p>
+<h3 id="table-posts">Table: posts</h3>
+<table>
+<thead>
+<tr>
+<th>post_id</th>
+<th>title</th>
+<th>author</th>
+<th>content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>omqnox</td>
+<td>Clinical Trials Discussion Thread - Week of 2021-07-18</td>
+<td>ClinicalTrialsBot</td>
+<td>Here you can talk about specific clinical trials, random studies or experiences with them, or the clinical trials process like recruitment, compensation etc.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="table-comments">Table: comments</h3>
+<table>
+<thead>
+<tr>
+<th>comment_id</th>
+<th>post_id</th>
+<th>comment_author</th>
+<th>comment_body</th>
+<th>reply_to_comment_id</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>h7k4j6a</td>
+<td>omqnox</td>
+<td>RachelRei</td>
+<td>My trial has had a rash of people canceling their study day appointments last minute! This costs me $200 in cancellation fees. I can’t charge them these fees since they are volunteering their time. Any suggestions on steps to take? We already send out plenty of reminders and communicate openly.</td>
+<td>omqnox</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>Running <code>generate_message.py</code></strong>: This Python script will create a JSON file containing the personalized messages to the commenter based on their comments Using the LLM.</p>
+<p>Write following line in the terminal to run the code.</p>
+<pre class="hljs"><code><div> python src/generate_message.py  
+</div></code></pre>
+<p>Example Output in JSON File :</p>
+<pre class="hljs"><code><div>{
+    <span class="hljs-attr">"author_id"</span>: <span class="hljs-string">"h7k4j6a"</span>,
+    <span class="hljs-attr">"comment"</span>: <span class="hljs-string">"RachelRei"</span>,
+    <span class="hljs-attr">"is_reply_to_post"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"personalized_message"</span>: <span class="hljs-string">"Hi RachelRei,\n\nI'm sorry to hear about the challenges you're facing with last-minute cancellations in your clinical trial. It's understandable that this can be frustrating, especially when it results in financial losses. Have you considered exploring strategies to improve participant engagement and commitment, such as providing additional support or incentives to encourage attendance?\n\nClinical trials are crucial for advancing medical research and improving healthcare outcomes, and your dedication to managing these challenges is commendable. Your experience highlights the importance of continuous improvement in the clinical trial process. If you're open to it, participating in a clinical trial yourself could provide valuable insights and contribute to the advancement of medical knowledge.\n\nIf you're interested, I'd be happy to provide more information on how to get involved in clinical trials or discuss any questions you may have. Your contribution to research efforts is truly appreciated!\n\nBest regards,\n[Your Name]"</span>
+}
+</div></code></pre>
+</li>
+</ol>
+<h2 id="evaluation-of-results">Evaluation of Results:</h2>
+<p>Manual analysis of the responses generated by the LLM (OpenAI's GPT-3) showed promising results in providing personalized and engaging messages to Reddit commenters. The methodology adopted in this project demonstrates the potential of AI-driven communication in enhancing user engagement and interaction on online platforms.</p>
+
+</body>
+</html>
