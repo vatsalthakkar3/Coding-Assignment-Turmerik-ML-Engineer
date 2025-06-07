@@ -56,7 +56,7 @@ def generate_message(comment, db_conn, is_reply_to_post):
     language model based on the provided information
     """
     cursor = db_conn.cursor()
-    cursor.execute(f"SELECT * FROM posts WHERE post_id = '{comment[1]}';")
+    cursor.execute("SELECT * FROM posts WHERE post_id = ?;", (comment[1], ))
     post = cursor.fetchall()[0]
     if is_reply_to_post:
         prompt = ChatPromptTemplate.from_messages(
@@ -90,7 +90,7 @@ def generate_message(comment, db_conn, is_reply_to_post):
         )
         return response.content
     else:
-        cursor.execute(f"SELECT * FROM comments WHERE comment_id = '{comment[4]}';")
+        cursor.execute("SELECT * FROM comments WHERE comment_id = ?;", (comment[4], ))
         parent_comment = cursor.fetchall()[0]
         prompt = ChatPromptTemplate.from_messages(
             [
